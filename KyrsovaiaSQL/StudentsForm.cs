@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KyrsovaiaSQL
 {
-    public partial class StudentsForm : Form
+    public partial class StudentsForms : Form
     {
-        public StudentsForm()
+        public StudentsForms()
         {
             InitializeComponent();
         }

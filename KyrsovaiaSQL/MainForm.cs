@@ -18,7 +18,9 @@ namespace KyrsovaiaSQL
         }
 
         ClassForm classForm = new ClassForm();
-        StudentsForm studentsForm = new StudentsForm();
+        StudentsForms studentsForm = new StudentsForms();
+        TeachersForm teachersForm = new TeachersForm();
+        SubjectsForm subjectsForm = new SubjectsForm();
 
         private void ClassButtonClick(object sender, EventArgs e)
         {
@@ -33,9 +35,27 @@ namespace KyrsovaiaSQL
         {
             if (studentsForm == null)
             {
-                studentsForm = new StudentsForm();
+                studentsForm = new StudentsForms();
             }
             studentsForm.Show();
+        }
+
+        private void TeachersButtonClick(object sender, EventArgs e)
+        {
+            if (teachersForm == null)
+            {
+                teachersForm = new TeachersForm();
+            }
+            teachersForm.Show();
+        }
+
+        private void SubjectsButtonClick(object sender, EventArgs e)
+        {
+            if (subjectsForm == null)
+            {
+                subjectsForm = new SubjectsForm();
+            }
+            subjectsForm.Show();
         }
     }
 }
