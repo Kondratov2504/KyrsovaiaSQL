@@ -5,6 +5,11 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KyrsovaiaSQL", "KyrsovaiaSQL\KyrsovaiaSQL.csproj", "{EA212EFF-00DD-4E3B-A83F-B6A868B8C1B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{632B8FDF-A812-43C7-960F-027358436E27}"
+	ProjectSection(SolutionItems) = preProject
+		KyrsovaiaSQL\DataBase.cs = KyrsovaiaSQL\DataBase.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
