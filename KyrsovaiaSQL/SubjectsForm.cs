@@ -86,13 +86,13 @@ namespace KyrsovaiaSQL
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text.Length > 0)
+            string name = textBox2.Text;
+            if (name.Length > 0)
             {
                 int index = dataGridView2.CurrentCell.RowIndex;
-                int index1 = dataGridView2.CurrentCell.ColumnIndex;
-                string id = dataGridView2.Rows[index].Cells[index1].Value.ToString();
+                string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
                 dataBase.openConnection();
-                SqlCommand sqlCommand = new SqlCommand("UPDATE Subject SET Name = ('" + textBox2.Text + "') WHERE Name = ('" + id + "')",
+                SqlCommand sqlCommand = new SqlCommand("UPDATE Subject SET Name = ('" + name + "') WHERE Id = ('" + id + "')",
                     dataBase.GetConnection());
                 sqlCommand.ExecuteNonQuery();
                 dataBase.closeConnection();
