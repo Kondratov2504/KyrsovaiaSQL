@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace KyrsovaiaSQL
 {
@@ -20,27 +21,32 @@ namespace KyrsovaiaSQL
         }
 
         DataBase dataBase = new DataBase();
-
-
+        DataBaseTableEditor tableEditor = new DataBaseTableEditor("Subject");
+        
 
         private void SubjectsForm_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineSubjectData.Subject". При необходимости она может быть перемещена или удалена.
+            this.subjectTableAdapter1.Fill(this.schoolMagazineSubjectData.Subject);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet2.Subject". При необходимости она может быть перемещена или удалена.
             this.subjectTableAdapter.Fill(this.schoolMagazineDataSet2.Subject);
 
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            //name = dataGridView2.Rows[index].Cells[1].Value?.ToString() ?? ""; // Value? останавливает дальнейшиq вызов ToString, ?? - если слева от этого символа null, то вернётся значение указанное справа 
+            textBox2.Text = tableEditor.GetCellValue(dataGridView2, 1);
         }
+
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UpdateBase();
+            RefreshTable();
         }
 
-        private void UpdateBase()
+        private void RefreshTable()
         {
             dataGridView2.Rows.Clear();
             dataBase.openConnection();
@@ -59,45 +65,64 @@ namespace KyrsovaiaSQL
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text.Length > 0)
-            {
-                dataBase.openConnection();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO Subject (Name) VALUES ('" + textBox1.Text + "')",
-                    dataBase.GetConnection());
-                sqlCommand.ExecuteNonQuery();
-                dataBase.closeConnection();
-                UpdateBase();
-            }
-            UpdateBase();
+            string name = textBox1.Text;
+            tableEditor.InsertRow(name);
+            RefreshTable();
         }
+
+        
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int index = dataGridView2.CurrentCell.RowIndex;
-            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
-            dataBase.openConnection();
-            SqlCommand sqlCommand = new SqlCommand("DELETE FROM Subject WHERE Id = " + id,
-                dataBase.GetConnection());
-            sqlCommand.ExecuteNonQuery();
-            dataBase.closeConnection();
-            UpdateBase();
+            string id = tableEditor.GetCellValue((DataGridView)sender,0);
+            tableEditor.DeleteRow(id);
+            RefreshTable();
 
         }
+
+        
 
         private void button4_Click(object sender, EventArgs e)
         {
             string name = textBox2.Text;
-            if (name.Length > 0)
-            {
-                int index = dataGridView2.CurrentCell.RowIndex;
-                string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
-                dataBase.openConnection();
-                SqlCommand sqlCommand = new SqlCommand("UPDATE Subject SET Name = ('" + name + "') WHERE Id = ('" + id + "')",
-                    dataBase.GetConnection());
-                sqlCommand.ExecuteNonQuery();
-                dataBase.closeConnection();
-                UpdateBase();
-            }
+            int index = dataGridView2.CurrentCell.RowIndex;
+            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
+            tableEditor.UpdateRow(name, id);
+            RefreshTable();
+        }
+
+       
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            textBox2.Text = tableEditor.GetCellValue(dataGridView, 1);
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            string id = tableEditor.GetCellValue((DataGridView)sender, 0);
+            tableEditor.DeleteRow(id);
         }
     }
 }

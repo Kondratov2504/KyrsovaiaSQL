@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
+    <Compile Include="DataBaseTableEditor.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +68,36 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolMagazineDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineDataSet5.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineStudentData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineStudentData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineSubjectData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineSubjectData.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SchoolMagazineTeacherDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolMagazineTeacherDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="StudentsForm.cs">
       <SubType>Form</SubType>
@@ -98,6 +129,11 @@
     </Compile>
     <Compile Include="SubjectsForm.Designer.cs">
       <DependentUpon>SubjectsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TeacherDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TeachersForm.cs">
       <SubType>Form</SubType>
@@ -184,6 +220,83 @@
     </None>
     <None Include="SchoolMagazineDataSet2.xss">
       <DependentUpon>SchoolMagazineDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet3.xsc">
+      <DependentUpon>SchoolMagazineDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineDataSet3.xss">
+      <DependentUpon>SchoolMagazineDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet4.xsc">
+      <DependentUpon>SchoolMagazineDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineDataSet4.xss">
+      <DependentUpon>SchoolMagazineDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet5.xsc">
+      <DependentUpon>SchoolMagazineDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineDataSet5.xss">
+      <DependentUpon>SchoolMagazineDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineStudentData.xsc">
+      <DependentUpon>SchoolMagazineStudentData.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineStudentData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineStudentData.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineStudentData.xss">
+      <DependentUpon>SchoolMagazineStudentData.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineSubjectData.xsc">
+      <DependentUpon>SchoolMagazineSubjectData.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineSubjectData.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineSubjectData.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineSubjectData.xss">
+      <DependentUpon>SchoolMagazineSubjectData.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineTeacherDataSet.xsc">
+      <DependentUpon>SchoolMagazineTeacherDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SchoolMagazineTeacherDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SchoolMagazineTeacherDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SchoolMagazineTeacherDataSet.xss">
+      <DependentUpon>SchoolMagazineTeacherDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TeacherDataSet.xsc">
+      <DependentUpon>TeacherDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TeacherDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TeacherDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TeacherDataSet.xss">
+      <DependentUpon>TeacherDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

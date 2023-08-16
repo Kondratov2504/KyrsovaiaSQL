@@ -20,19 +20,23 @@ namespace KyrsovaiaSQL
         }
 
         DataBase dataBase = new DataBase();
+        DataBaseTableEditor tableEditor = new DataBaseTableEditor("Teacher");
 
 
         private void TeachersForm_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "teacherDataSet.Teacher". При необходимости она может быть перемещена или удалена.
+            this.teacherTableAdapter2.Fill(this.teacherDataSet.Teacher);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineTeacherDataSet.Teacher". При необходимости она может быть перемещена или удалена.
+            //this.teacherTableAdapter1.Fill(this.schoolMagazineTeacherDataSet.Teacher);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet1.Teacher". При необходимости она может быть перемещена или удалена.
-            this.teacherTableAdapter.Fill(this.schoolMagazineDataSet1.Teacher);
-
+            //this.teacherTableAdapter.Fill(this.schoolMagazineDataSet1.Teacher);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             TableUpdate();
-
+            this.teacherTableAdapter2.Fill(teacherDataSet.Teacher);
         }
 
         private void TableUpdate()
@@ -55,46 +59,103 @@ namespace KyrsovaiaSQL
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length > 0)
-            {
-                AddTeacher();
-                TableUpdate();
-            }
-            
+            string name = textBox1.Text;
+            tableEditor.InsertRow(name);
+            TableUpdate();
         }
 
-        private void AddTeacher()
+        /*private void AddTeacher()
         {
             dataBase.openConnection();
             SqlCommand sqlCommand = new SqlCommand("INSERT INTO Teacher (fio) VALUES ('" + textBox1.Text + "')",
                 dataBase.GetConnection());
             sqlCommand.ExecuteNonQuery();
             dataBase.closeConnection();
-        }
+        }*/
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DeleteTeacher();
+            int index = dataGridView2.CurrentCell.RowIndex;
+            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
+            tableEditor.DeleteRow(id);
             TableUpdate();
         }
 
-        private void DeleteTeacher()
-        {
-            int index = dataGridView2.CurrentCell.RowIndex;
-            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
-            //id = dataGridView2.SelectedRows[0].Cells[0].Value.ToString();
-            // SelectedRows работает когда все ячейки строки выделены , и это неудобно
-            dataBase.openConnection();
-            SqlCommand sqlCommand =
-                new SqlCommand("DELETE FROM Teacher WHERE Id = " + id,
-                dataBase.GetConnection());
-            sqlCommand.ExecuteNonQuery();
-            dataBase.closeConnection();
-        }
+       
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string name = textBox2.Text;
+            int index = dataGridView2.CurrentCell.RowIndex;
+            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
+            tableEditor.UpdateRow(name,id);
+            TableUpdate();
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            textBox2.Text = tableEditor.GetCellValue((DataGridView)sender,1);
+        }
+
+        private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            string id = tableEditor.GetCellValue((DataGridView)sender, 0);
+            tableEditor.DeleteRow(id);
+        }
+
+        private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            string name = e.Row.Cells[1].Value?.ToString();
+            //tableEditor.InsertRow(name);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            //MessageBox.Show(((DataGridView)sender).RowCount.ToString()); 
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            string id = tableEditor.GetCellValue((DataGridView)sender, 0);
+            string name = tableEditor.GetCellValue((DataGridView)sender, 1);
+            if(int.Parse(id) < 0)
+            {
+                // выполняем добавление
+                tableEditor.InsertRow(name);
+            }
+            else
+            {
+                // обновление 
+                tableEditor.UpdateRow(name,id);
+            }
+            //dataGridView1.DataBindings.Control.Update();
+            //dataGridView1.DataBindings.Control.Refresh();
+            //dataGridView1.Update();
+            //dataGridView1.Refresh();
+        }
     }
-}
+    }
+

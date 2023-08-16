@@ -21,6 +21,7 @@ namespace KyrsovaiaSQL
         };
 
         DataBase dataBase = new DataBase();
+        DataBaseTableEditor tableEditor = new DataBaseTableEditor("Class");
 
         public ClassForm()
         {
@@ -29,6 +30,10 @@ namespace KyrsovaiaSQL
 
         private void FormLoad(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet5.Class". При необходимости она может быть перемещена или удалена.
+            this.classTableAdapter2.Fill(this.schoolMagazineDataSet5.Class);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet4.Class". При необходимости она может быть перемещена или удалена.
+            this.classTableAdapter1.Fill(this.schoolMagazineDataSet4.Class);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineClassDataSet.Class". При необходимости она может быть перемещена или удалена.
             this.classTableAdapter.Fill(this.schoolMagazineClassDataSet.Class);
 
@@ -88,14 +93,8 @@ namespace KyrsovaiaSQL
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length > 0)
-            {
-                dataBase.openConnection();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO Class (Name) VALUES ('" + textBox1.Text + "')",
-                     dataBase.GetConnection());
-                sqlCommand.ExecuteNonQuery();
-                dataBase.closeConnection();
-            }
+            string name = textBox1.Text;
+            tableEditor.InsertRow(name);
             UpdateBase();
         }
 
@@ -103,12 +102,45 @@ namespace KyrsovaiaSQL
         {
             int index = dataGridView3.CurrentCell.RowIndex;
             string id = dataGridView3.Rows[index].Cells[0].Value.ToString();
-            dataBase.openConnection();
-            SqlCommand sqlCommand = new SqlCommand("DELETE FROM Class WHERE Id = " + id,
-                dataBase.GetConnection());
-            sqlCommand.ExecuteNonQuery();
-            dataBase.closeConnection();
+            tableEditor.DeleteRow(id);
             UpdateBase();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string name = textBox2.Text;
+            int index = dataGridView3.CurrentCell.RowIndex;
+            string id = dataGridView3.Rows[index].Cells[0].Value.ToString();
+            tableEditor.UpdateRow(name, id);
+            UpdateBase();
+        }
+
+        
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            textBox2.Text = tableEditor.GetCellValue(dataGridView3,1);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            string id = tableEditor.GetCellValue((DataGridView)sender, 0);
+            tableEditor.DeleteRow(id);
         }
     }
    // SqlCommand command = new SqlCommand("SELECT *  FROM Class", dataBase.GetConnection());

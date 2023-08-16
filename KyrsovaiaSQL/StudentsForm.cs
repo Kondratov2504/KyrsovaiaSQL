@@ -22,8 +22,14 @@ namespace KyrsovaiaSQL
             InitializeComponent();
         }
 
+        DataBaseTableEditor tableEditor = new DataBaseTableEditor("Student");
+
         private void StudentForm_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet3.Student". При необходимости она может быть перемещена или удалена.
+            this.studentTableAdapter2.Fill(this.schoolMagazineDataSet3.Student);
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineStudentData.Student". При необходимости она может быть перемещена или удалена.
+            this.studentTableAdapter1.Fill(this.schoolMagazineStudentData.Student);
             // TODO: данная строка кода позволяет загрузить данные в таблицу "schoolMagazineDataSet.Student". При необходимости она может быть перемещена или удалена.
             this.studentTableAdapter.Fill(this.schoolMagazineDataSet.Student);
 
@@ -58,27 +64,50 @@ namespace KyrsovaiaSQL
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text.Length > 0)
-            {
-                dataBase.openConnection();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO Student (Name) VALUES ('" + textBox1.Text + "')",
-                    dataBase.GetConnection());
-                sqlCommand.ExecuteNonQuery();
-                dataBase.closeConnection();
-                UpdateBase();
-            }
+            string name = textBox1.Text;
+            tableEditor.InsertRow(name);
+            UpdateBase();
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             int index = dataGridView2.CurrentCell.RowIndex;
             string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
-            dataBase.openConnection();
-            SqlCommand sqlCommand = new SqlCommand("DELETE FROM Student WHERE Id = " + id,
-                dataBase.GetConnection());
-            sqlCommand.ExecuteNonQuery();
-            dataBase.closeConnection();
+            tableEditor.DeleteRow(id);
             UpdateBase();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string name = textBox2.Text;
+            int index = dataGridView2.CurrentCell.RowIndex;
+            string id = dataGridView2.Rows[index].Cells[0].Value.ToString();
+            tableEditor.UpdateRow(name, id);
+            UpdateBase();
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            textBox2.Text = tableEditor.GetCellValue(dataGridView,1);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            string id = tableEditor.GetCellValue((DataGridView)sender, 0);
+            tableEditor.DeleteRow(id);
+        }
     }
-}
+    }
+
